@@ -1,16 +1,23 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+filenames = ['1.txt', '2.txt', '3.txt']
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def get_lines_num(file_info):
+    return file_info['lines_num']
 
+files_info = []
+for filename in filenames:
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+        files_info.append({
+            'name': filename,
+            'lines': lines,
+            'lines_num': len(lines)
+        })
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+sorted_files_info = sorted(files_info, key=get_lines_num)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for file_info in sorted_files_info:
+    print(file_info['name'])
+    print(file_info['lines_num'])
+    for line in file_info['lines']:
+        print(line.strip())
